@@ -1,0 +1,33 @@
+# use the official gcc image, based on debian
+# can use verions as well, like gcc:5.2
+# see https://hub.docker.com/_/gcc/
+image: golang:latest
+
+stages:
+  - build
+  - test
+  - deploy
+build1:
+  stage: build
+  # building ethereum
+  script:
+    - cd go-ethereum
+    - make geth
+build2:
+  stage: build
+  # creating dependencies
+  script:
+    - brew install go
+
+test:
+  stage: test
+  script:
+  # run tests using the binary built before
+
+deploy:
+  stage: deploy
+  # deploying code to gitlab
+  script:
+    - git add .gitlab-ci.yml
+    - git commit -m "Add .gitlab-ci.yml"
+    - git push origin master
